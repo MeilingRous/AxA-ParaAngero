@@ -1,0 +1,314 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+  color: white;
+  background: #03000b;
+}
+
+body {
+  cursor: pointer;
+}
+
+#scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(116, 50, 145, .28), transparent 18%),
+    radial-gradient(circle at 25% 30%, rgba(45, 85, 180, .18), transparent 30%),
+    radial-gradient(circle at 75% 65%, rgba(180, 55, 130, .14), transparent 30%),
+    #03000b;
+}
+
+#stars,
+#stars::before,
+#stars::after {
+  position: fixed;
+  inset: 1;
+  content: "";
+  pointer-events: none;
+}
+
+#stars {
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1.5px);
+  background-size: 95px 95px, 137px 137px;
+  background-position: 10px 20px, 40px 70px;
+  animation: drift 35s linear infinite;
+}
+
+#stars::before {
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1.5px);
+  background-size: 53px 71px;
+  opacity: .55;
+}
+
+#stars::after {
+  background: radial-gradient(ellipse at center, transparent 20%, rgba(0,0,0,.5) 100%);
+}
+
+@keyframes drift {
+  to { transform: translate(-30px, 20px); }
+}
+
+.galaxy {
+  position: absolute;
+  width: 150vmax;
+  height: 55vmax;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse, rgba(255, 190, 255, .32), transparent 9%),
+    radial-gradient(ellipse, rgba(119, 75, 220, .28), transparent 30%),
+    radial-gradient(ellipse, rgba(35, 126, 255, .15), transparent 50%),
+    radial-gradient(ellipse, rgba(235, 65, 190, .14), transparent 65%);
+  filter: blur(16px);
+  animation: galaxy 12s ease-in-out infinite alternate;
+}
+
+@keyframes galaxy {
+  from { transform: translate(-50%, -50%) rotate(-12deg) scale(1); }
+  to { transform: translate(-50%, -50%) rotate(-7deg) scale(1.08); }
+}
+
+.black-hole {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 190px;
+  height: 190px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #000;
+  box-shadow:
+    0 0 20px 8px rgba(255, 197, 75, .35),
+    0 0 60px 20px rgba(178, 70, 255, .25);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.black-hole::before {
+  content: "";
+  position: absolute;
+  inset: -22px;
+  border: 5px solid rgba(255, 202, 91, .8);
+  border-left-color: rgba(255, 105, 210, .4);
+  border-right-color: rgba(108, 166, 255, .4);
+  border-radius: 50%;
+  transform: rotate(18deg);
+  filter: blur(2px);
+}
+
+@keyframes pulse {
+  50% {
+    box-shadow:
+      0 0 30px 12px rgba(255, 197, 75, .45),
+      0 0 85px 25px rgba(178, 70, 255, .3);
+  }
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 25px;
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(.96);
+}
+
+#start-screen {
+  text-shadow: 0 2px 12px #000;
+}
+
+.flower {
+  animation: flowerFloat 2.5s ease-in-out infinite;
+  margin-bottom: 2px;
+}
+
+.flower img {
+  width: 140px;
+  height: auto;
+  display: block;
+}
+
+#start-screen p {
+  font-size: 18px;
+  letter-spacing: 2px;
+  opacity: .9;
+}
+
+@keyframes flowerFloat {
+  50% { transform: translateY(-12px) rotate(4deg); }
+}
+
+#message-screen {
+  overflow-y: auto;
+  justify-content: center;
+  background: rgba(0,0,0,.12);
+}
+
+.flowers {
+  margin-bottom: 1px;
+  animation: appear 1.8s ease both;
+}
+
+.flowers img {
+  width: 230px;
+  height: auto;
+  display: block;
+}
+
+.flower img {
+    width: 150px;
+    height: auto;
+}
+
+.flowers img {
+    width: 230px;
+    height: auto;
+}
+
+.bouquet img {
+    width: 320px;
+    height: auto;
+}
+
+
+h1 {
+  margin: 0 0 22px;
+  font-size: clamp(32px, 7vw, 58px);
+  color: #ffe68a;
+  text-shadow: 0 0 18px rgba(255, 213, 80, .45);
+}
+
+.message {
+  width: min(700px, 90vw);
+  margin: 9px 0;
+  font-size: clamp(16px, 2.7vw, 21px);
+  line-height: 1.65;
+  text-shadow: 0 2px 8px #000;
+  animation: appear 1.4s ease both;
+}
+
+.message:nth-of-type(2) { animation-delay: .4s; }
+.message:nth-of-type(3) { animation-delay: .8s; }
+
+.final {
+  margin-top: 22px;
+  font-size: clamp(22px, 4vw, 31px);
+  color: #ffe68a;
+  animation: appear 1.5s 1.2s ease both;
+}
+
+.petals::before,
+.petals::after {
+  content: "";
+  position: fixed;
+  width: 45px;
+  height: 45px;
+  background-image: url("img/Flor.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  animation: fall 8s linear infinite;
+}
+
+.petals::before {
+  left: 15%;
+  top: -50px;
+}
+
+.petals::after {
+  left: 75%;
+  top: -100px;
+  animation-delay: 3s;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(180deg);
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .black-hole {
+    width: 135px;
+    height: 135px;
+  }
+
+  .black-hole::before {
+    inset: -16px;
+  }
+
+  .message {
+    line-height: 1.5;
+  }
+}
+
+/* ESTRELLAS */
+#scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(circle at 12% 18%, white 1px, transparent 2px),
+    radial-gradient(circle at 37% 72%, rgba(255,255,255,.8) 1px, transparent 2px),
+    radial-gradient(circle at 82% 24%, white 1.5px, transparent 2.5px),
+    radial-gradient(circle at 64% 87%, rgba(255,255,255,.7) 1px, transparent 2px),
+    radial-gradient(circle at 91% 61%, white 1px, transparent 2px),
+    radial-gradient(circle at 23% 91%, rgba(255,255,255,.8) 1px, transparent 2px),
+    radial-gradient(circle at 51% 13%, white 1px, transparent 2px),
+    radial-gradient(circle at 74% 47%, rgba(255,255,255,.9) 1px, transparent 2px),
+    radial-gradient(circle at 5% 55%, white 1.5px, transparent 2.5px),
+    radial-gradient(circle at 45% 42%, rgba(255,255,255,.6) 1px, transparent 2px),
+    radial-gradient(circle at 17% 67%, white 1px, transparent 2px),
+    radial-gradient(circle at 88% 89%, rgba(255,255,255,.8) 1px, transparent 2px);
+
+  animation: starsMove 15s linear infinite;
+}
+
+@keyframes starsMove {
+  from {
+    transform: translate(0, 0);
+  }
+
+  to {
+    transform: translate(-30px, 20px);
+  }
+}
